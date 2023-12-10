@@ -7,6 +7,7 @@
 
 #include "FastMeasure/fastmeasurepch.h"
 #include "FastMeasure/EmbededPlatform/LidarReadLayer.h"
+#include "FastMeasure/Display/DisplayData.h"
 
 namespace Atom {
     class Application {
@@ -25,7 +26,11 @@ namespace Atom {
         LayerStack m_LayerStack;
         bool isConnected = false;
 
+
+        sf::RenderWindow* m_Window;
         LidarReadLayer* m_LidarReadLayer;
+        DisplayData* m_DisplayData;
+
 
 
     };

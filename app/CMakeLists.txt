@@ -14,6 +14,8 @@ set(SOURCES
         FastMeasure/fastmeasurepch.h
         FastMeasure/EmbededPlatform/LidarReadLayer.cpp
         FastMeasure/EmbededPlatform/LidarReadLayer.h
+        FastMeasure/Display/DisplayData.cpp
+        FastMeasure/Display/DisplayData.h
 
 )
 
@@ -30,6 +32,8 @@ add_executable(executable ${SOURCES} )
 target_link_libraries(executable
         ${OpenCV_LIBS}
         glm
+        sfml-graphics
+        sfml-audio
 )
 
 

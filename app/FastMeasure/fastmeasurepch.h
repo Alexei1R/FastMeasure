@@ -34,6 +34,9 @@
 #include <map>
 #include <cctype>
 
+#include <SFML/Graphics.hpp>
+
+
 #include "FastMeasure/Core/Layers/Layer.h"
 #include "FastMeasure/Core/Layers/LayerStack.h"
 

@@ -53,6 +53,8 @@ namespace Atom {
                 double x = range * cos(angle) * 100;
                 double y = range * sin(angle) * 100;
                 m_CoordinatesList.push_back(std::make_pair(x, y));
+
+                std::cout << "x: " << x << " y: " << y << std::endl;
             }
 
 
