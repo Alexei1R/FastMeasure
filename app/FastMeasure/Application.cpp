@@ -14,7 +14,7 @@ namespace Atom {
         s_Instance = (Application *) this;
 
 
-        sf::Vector2u windowSize(800, 600);
+        sf::Vector2u windowSize(1080, 720);
         m_Window = new sf::RenderWindow(sf::VideoMode(windowSize), "FastMeasure");
 
         m_LidarReadLayer = new LidarReadLayer("/dev/ttyACM0");

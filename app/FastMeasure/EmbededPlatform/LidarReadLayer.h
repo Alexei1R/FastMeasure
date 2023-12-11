@@ -21,14 +21,28 @@ namespace Atom {
         virtual void OnFixedUpdate() override;
 
         std::vector<std::pair<double, double>> GetCoordinatesList() { return m_CoordinatesList; }
+        bool IsOnline() { return isOnline; }
+        double GetLargestDistance() { return m_LargestDistance; }
+    private:
+        void ReadLidarDataThread();
 
     private:
+        int baudrate = 230400;
+        std::string m_Port;
+        bool isOnline = false;
+
         ordlidar::OrdlidarDriver* m_Device;
         full_scan_data_st m_ScanData;
-        unsigned int m_MotorSpeed = 10;
+        unsigned int m_MotorSpeed = 20;
 
         std::pair<double, double> m_Coordinates;
         std::vector<std::pair<double, double>> m_CoordinatesList;
+
+        std::thread m_LidarThread;
+        std::atomic<bool> m_Running{false};
+        std::mutex m_CoordinatesListMutex;
+
+        double m_LargestDistance = 0.0;
 
     };
 
