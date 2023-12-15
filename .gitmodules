@@ -7,3 +7,7 @@
 [submodule "libs/sfml"]
 	path = libs/sfml
 	url = https://github.com/SFML/SFML.git
+[submodule "libs/imgui-cmake/imgui"]
+	path = libs/imgui-cmake/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
