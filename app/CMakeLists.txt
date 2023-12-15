@@ -16,6 +16,8 @@ set(SOURCES
         FastMeasure/EmbededPlatform/LidarReadLayer.h
         FastMeasure/Display/DisplayData.cpp
         FastMeasure/Display/DisplayData.h
+        FastMeasure/Algorithm/HoughTransform.cpp
+        FastMeasure/Algorithm/HoughTransform.h
 
 )
 
