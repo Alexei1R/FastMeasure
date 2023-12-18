@@ -7,13 +7,12 @@ message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
 
-# # Include the directories where OpenGL and GLEW headers are located
-include_directories(${CMAKE_SOURCE_DIR}/libs/glfw/include)
-include_directories(${CMAKE_SOURCE_DIR}/libs/glad/include)
+
+#message curent cmake dir
+message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
 
-
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/libs/imgui-cmake/imgui)
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/libs/imgui-cmake)
 
 
 set(CMAKE_DEBUG_POSTFIX d)
@@ -25,25 +24,22 @@ set(ROOT ${IMGUI_DIR})
 
 add_library(imgui STATIC
 
-	${ROOT}/imgui.cpp
-	${ROOT}/imgui.h
-	${ROOT}/imstb_rectpack.h
-	${ROOT}/imstb_textedit.h
-	${ROOT}/imstb_truetype.h
-    ${ROOT}/imgui_demo.cpp
-    ${ROOT}/imgui_draw.cpp
-    ${ROOT}/imgui_internal.h
-    ${ROOT}/imgui_tables.cpp
-    ${ROOT}/imgui_widgets.cpp
-
-	
+	${ROOT}/imgui/imgui.cpp
+	${ROOT}/imgui/imgui.h
+	${ROOT}/imgui/imstb_rectpack.h
+	${ROOT}/imgui/imstb_textedit.h
+	${ROOT}/imgui/imstb_truetype.h
+    ${ROOT}/imgui/imgui_demo.cpp
+    ${ROOT}/imgui/imgui_draw.cpp
+    ${ROOT}/imgui/imgui_internal.h
+    ${ROOT}/imgui/imgui_tables.cpp
+    ${ROOT}/imgui/imgui_widgets.cpp
 
 
-	${ROOT}/backends/imgui_impl_glfw.cpp 
-	${ROOT}/backends/imgui_impl_glfw.h 
-	${ROOT}/backends/imgui_impl_opengl3.cpp 
-	${ROOT}/backends/imgui_impl_opengl3.h 
-	${ROOT}/backends/imgui_impl_opengl3_loader.h
+	${ROOT}/imconfig-SFML.h
+	${ROOT}/imgui-SFML.cpp
+	${ROOT}/imgui-SFML.h
+	${ROOT}/imgui-SFML_export.h
 
 )
 
@@ -56,6 +52,6 @@ target_include_directories(imgui
 
 # Link against the OpenGL and GLEW libraries
 target_link_libraries(imgui
-	glfw
-	# libglew_static
+		sfml-graphics
+		sfml-audio
 )

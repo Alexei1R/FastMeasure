@@ -36,6 +36,7 @@ target_link_libraries(executable
         glm
         sfml-graphics
         sfml-audio
+        imgui
 )
 
 
