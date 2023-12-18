@@ -35,11 +35,11 @@ namespace Atom {
     void LidarReadLayer::OnDetach() {}
 
     void LidarReadLayer::OnUpdate() {
-        if(isOnline) {
-            std::cout << "Lidar is online" << std::endl;
-        } else {
-            std::cout << "Lidar is offline" << std::endl;
-        }
+//        if(isOnline) {
+//            std::cout << "Lidar is online" << std::endl;
+//        } else {
+//            std::cout << "Lidar is offline" << std::endl;
+//        }
 
     }
 
@@ -96,6 +96,10 @@ namespace Atom {
                 m_LargestDistance = largestDistance;
             }
         }
+
+    }
+
+    void LidarReadLayer::OnImGuiRender() {
 
     }
 }

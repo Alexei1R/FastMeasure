@@ -17,9 +17,12 @@ namespace Atom {
         virtual void OnDetach() override;
         virtual void OnUpdate() override;
         virtual void OnFixedUpdate() override;
+        virtual void OnImGuiRender() override;
 
     private:
         sf::RenderWindow& m_Window;
+        sf::RenderTexture m_RenderTexture;
+        sf::RenderTexture m_OutTexture;
         Atom::LidarReadLayer& m_LidarReadLayer;
         std::vector<std::pair<double, double>> m_CoordinatesList;
         std::vector<std::vector<std::pair<double, double>>> m_AverageCoordinatesList;

@@ -42,6 +42,9 @@
 
 #include "glm/glm.hpp"
 
+#include "imgui/imgui.h"
+#include "imgui-SFML.h"
+
 #ifdef _WIN32
 #include <windows.h> // Ug, for NukeProcess -- see below
 #else

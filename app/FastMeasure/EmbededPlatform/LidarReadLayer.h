@@ -19,6 +19,7 @@ namespace Atom {
         virtual void OnDetach() override;
         virtual void OnUpdate() override;
         virtual void OnFixedUpdate() override;
+        virtual void OnImGuiRender() override;
 
         std::vector<std::pair<double, double>> GetCoordinatesList() { return m_CoordinatesList; }
         bool IsOnline() { return isOnline; }

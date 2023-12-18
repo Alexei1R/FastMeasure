@@ -18,6 +18,7 @@ namespace Atom {
         virtual void OnDetach() {}
         virtual void OnUpdate() {}
         virtual void OnFixedUpdate() {}
+        virtual void OnImGuiRender() {}
 
 
         inline const std::string& GetName() const { return m_Name; }

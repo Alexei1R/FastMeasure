@@ -28,8 +28,13 @@ namespace Atom {
 
 
         sf::RenderWindow* m_Window;
+        sf::Clock deltaClock{};
+        sf::Event event{};
+
         LidarReadLayer* m_LidarReadLayer;
         DisplayData* m_DisplayData;
+
+        sf::RenderTexture m_RenderTexture;
 
 
 
