@@ -18,6 +18,10 @@ set(SOURCES
         FastMeasure/Display/DisplayData.h
         FastMeasure/Algorithm/HoughTransform.cpp
         FastMeasure/Algorithm/HoughTransform.h
+        FastMeasure/UI/UI.cpp
+        FastMeasure/UI/UI.h
+        FastMeasure/UI/logo.h
+        FastMeasure/UI/widgets.h
 
 )
 
