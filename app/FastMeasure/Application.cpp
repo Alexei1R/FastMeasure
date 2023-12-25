@@ -14,11 +14,15 @@ namespace Atom {
         m_LidarReadLayer = new LidarReadLayer("/dev/ttyACM0");
         PushLayer(m_LidarReadLayer);
 
-        m_DisplayData = new DisplayData(*m_Window, *m_LidarReadLayer);
+        m_FindLines = new LineDetector(*m_LidarReadLayer);
+        PushLayer(m_FindLines);
+
+        m_DisplayData = new DisplayData(*m_Window, *m_LidarReadLayer, *m_FindLines);
         PushLayer(m_DisplayData);
 
-        m_UILayer = new UILayer();
-        PushOverlay(m_UILayer);
+//        m_UILayer = new UILayer();
+//        PushOverlay(m_UILayer);
+
 
         m_Window->setFramerateLimit(60);
         ImGui::SFML::Init(*m_Window);

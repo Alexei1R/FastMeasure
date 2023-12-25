@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 project(FastMeasure)
 find_package(OpenCV REQUIRED )
+find_package(PCL REQUIRED)
 
 
 set(SOURCES
@@ -16,12 +17,12 @@ set(SOURCES
         FastMeasure/EmbededPlatform/LidarReadLayer.h
         FastMeasure/Display/DisplayData.cpp
         FastMeasure/Display/DisplayData.h
-        FastMeasure/Algorithm/HoughTransform.cpp
-        FastMeasure/Algorithm/HoughTransform.h
         FastMeasure/UI/UI.cpp
         FastMeasure/UI/UI.h
         FastMeasure/UI/logo.h
         FastMeasure/UI/widgets.h
+        FastMeasure/Algorithm/FindLines.cpp
+        FastMeasure/Algorithm/FindLines.h
 
 )
 
@@ -37,6 +38,7 @@ add_executable(executable ${SOURCES} )
 
 target_link_libraries(executable
         ${OpenCV_LIBS}
+        ${PCL_LIBRARIES}
         glm
         sfml-graphics
         sfml-audio

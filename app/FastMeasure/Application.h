@@ -8,6 +8,7 @@
 #include "FastMeasure/EmbededPlatform/LidarReadLayer.h"
 #include "FastMeasure/Display/DisplayData.h"
 #include "FastMeasure/UI/UI.h"
+#include "FastMeasure/Algorithm/FindLines.h"
 
 namespace Atom {
     class Application {
@@ -35,6 +36,8 @@ namespace Atom {
         sf::Vector2i m_DeltaDrag;
         float m_DeltaScroll = 0.0f;
         float m_DefaultScalingFactor = 4.0f;
+
+        LineDetector* m_FindLines;
     };
 }
 

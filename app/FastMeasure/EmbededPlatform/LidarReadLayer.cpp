@@ -88,6 +88,7 @@ namespace Atom {
                     double x = range * cos(angle) * 100;
                     double y = range * sin(angle) * 100;
                     localCoordinatesList.push_back(std::make_pair(x, y));
+                    // std::cout << "(" << x << "," << y <<")," <<std::endl;
                 }
 
                 // Lock the mutex before updating the shared resource

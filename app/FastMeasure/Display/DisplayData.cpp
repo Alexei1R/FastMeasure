@@ -6,9 +6,8 @@
 #include <cmath>
 
 namespace Atom {
-    DisplayData::DisplayData(sf::RenderWindow& window, Atom::LidarReadLayer& lidarReadLayer)
-            : Layer("DisplayData"), m_Window(window), m_LidarReadLayer(lidarReadLayer) {
-
+    DisplayData::DisplayData(sf::RenderWindow& window, Atom::LidarReadLayer& lidarReadLayer, LineDetector& findLines)
+            : Layer("DisplayData"), m_Window(window), m_LidarReadLayer(lidarReadLayer) , m_FindLines(findLines){
         if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")) {
             std::cout << "Error loading font" << std::endl;
         }
@@ -27,12 +26,9 @@ namespace Atom {
         m_RenderTexture.clear(sf::Color::Black);
         m_LargestDistanceAverage = 0; // Reset the average distance
         if(m_ViewPortSize.x > 0 && m_ViewPortSize.y > 0) {
-
             if (m_ViewPortSize.x != m_RenderTexture.getSize().x || m_ViewPortSize.y != m_RenderTexture.getSize().y) {
                 m_RenderTexture.create(sf::Vector2u (m_ViewPortSize.x , m_ViewPortSize.y ));
             }
-
-
             if (m_LidarReadLayer.IsOnline()) {
                 m_CoordinatesList = m_LidarReadLayer.GetCoordinatesList();
                 m_AverageCoordinatesList.push_back(m_CoordinatesList);
@@ -53,14 +49,6 @@ namespace Atom {
                 m_CenterPoint =  sf::Vector2f(windowSize.x / 2.0f, windowSize.y / 2.0f) + sf::Vector2f(m_OffsetX, m_OffsetY);
                 float scale = m_LargestDistanceAverage != 0 ? m_ScalingFactor / m_LargestDistanceAverage : 1;
                 for (const auto& coordinatesList : m_AverageCoordinatesList) {
-//                for (const auto& point : coordinatesList) {
-//                    sf::CircleShape dot(2); // Radius of 2 pixels
-//                    dot.setFillColor(sf::Color(100, 255, 255));
-//                    sf::Vector2f centeredPosition(m_CenterPoint.x + static_cast<float>(point.first) * scale,
-//                                                  m_CenterPoint.y + static_cast<float>(point.second) * scale);
-//                    dot.setPosition(centeredPosition);
-//                    m_RenderTexture.draw(dot);
-//                }
                     if (!m_CoordinatesList.empty()) {
                         const float maxLineLength = 20;
 
@@ -69,17 +57,42 @@ namespace Atom {
                                                 m_CenterPoint.y + static_cast<float>(m_CoordinatesList[i].second) * scale);
                             sf::Vector2f point2(m_CenterPoint.x + static_cast<float>(m_CoordinatesList[i + 1].first) * scale,
                                                 m_CenterPoint.y + static_cast<float>(m_CoordinatesList[i + 1].second) * scale);
-
                             float lineLength = std::sqrt(std::pow(point2.x - point1.x, 2) + std::pow(point2.y - point1.y, 2));
-
                             if (lineLength <= maxLineLength) {
                                 sf::Vertex line[] = {
                                         sf::Vertex(point1),
                                         sf::Vertex(point2)
                                 };
-
                                 m_RenderTexture.draw(line, 2, sf::PrimitiveType::Lines);
                             }
+                        }
+                    }
+                }
+                std::vector<std::vector<std::pair<double,double>> > linesFormedfromPoints = m_FindLines.GetLinesFromPoints();
+                if(linesFormedfromPoints.size() > 0) {
+                    for(int i = 0; i < linesFormedfromPoints.size(); ++i) {
+                        std::vector<std::pair<double,double>> linePoints  = linesFormedfromPoints[i];
+
+                        // if is a moltiplu of one set color red , if is a multiple of 2 set color green , if is a multiple of 3 set color blue
+                        sf::Color color;
+                        if(i % 2) {
+                            color = sf::Color::Red;
+                        }
+                        else if(i % 3) {
+                            color = sf::Color::Green;
+                        }
+                        else {
+                            color = sf::Color::Blue;
+                        }
+
+
+                        for(auto& point : linePoints) {
+                            sf::CircleShape dot(2); // Radius of 2 pixels
+                            dot.setFillColor(color);
+                            sf::Vector2f centeredPosition(m_CenterPoint.x + static_cast<float>(point.first) * scale,
+                                                          m_CenterPoint.y + static_cast<float>(point.second) * scale);
+                            dot.setPosition(centeredPosition);
+                            m_RenderTexture.draw(dot);
                         }
                     }
                 }
@@ -100,8 +113,6 @@ namespace Atom {
         }
     }
 
-
-
     void DisplayData::OnImGuiRender() {
         ImGui::Begin("DisplayData");
         ImVec2 windowSize = ImGui::GetWindowSize();
@@ -113,12 +124,8 @@ namespace Atom {
         ImGui::End();
     }
 
-
-
-
     void DisplayData::OnFixedUpdate() {
     }
-
     void DisplayData::SetOffset(float x, float y) {
         m_OffsetX = x;
         m_OffsetY = y;
